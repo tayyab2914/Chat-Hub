@@ -1,0 +1,23 @@
+{% extends "pages/base.html" %}
+{% load static %}
+{% block titile %}ChatHub{% endblock titile %}
+
+{% block css %}
+<style>
+    .gradient {
+        background: linear-gradient(93deg, #8d0062 0%, #000 100%);
+    }
+</style>
+{% endblock css %}
+
+{% block body %}
+<div class="gradient leading-normal tracking-normal">
+    {% include "../components/landingnav.html"%}
+    {% include "../components/hero.html"%}
+    {% include "../components/features.html" %}
+    {% include "../components/cta.html" %}
+</div>
+
+
+<script src={% static 'js/core.js' %}></script>
+{% endblock body %}
