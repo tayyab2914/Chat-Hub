@@ -2,5 +2,90 @@
 {% block title %}ChatApp - Dashboard{% endblock title %}
 
 {% block body %}
-{% include "../components/sidebar.html" %}
+{% include "../components/sidebar.html" with current_page='dashboard' %}
+<div class="min-h-screen bg-gray-900 p-4 sm:ml-64">
+    <div class="p-4 border-2 border-gray-200  rounded-lg dark:border-gray-700 mt-14">
+       <div class="grid grid-cols-2 gap-4 mb-4">
+          <a href="{% url "create" %}" class="rounded-full bg-blue-600  flex items-center justify-center h-20">
+             <p class="text-xl sm:text-2xl font-bold text-gray-200 dark:text-gray-200">
+                Create Room
+             </p>
+            </a>
+          <a href="{% url "join" %}" class="rounded-full bg-gray-200 flex items-center justify-center h-20">
+             <p class="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-900">
+                Join Room
+             </p>
+          </a>
+       </div>
+
+       <!--Created Rooms-->
+        <div class="flex items-center h-10 ml-2 mt-6 mb-2">
+            <svg version="1.1" id="icons_1_" xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 128 128" style="enable-background:new 0 0 128 128" xml:space="preserve"><style>.st0{display:none}.st1{display:inline}.st2{fill:#ffffff}</style><g id="row1_1_"><g id="_x36__2_"><path class="st2" d="M64 .3C28.7.3 0 28.8 0 64s28.7 63.7 64 63.7 64-28.5 64-63.7S99.3.3 64 .3zm0 121C32.2 121.3 6.4 95.7 6.4 64 6.4 32.3 32.2 6.7 64 6.7s57.6 25.7 57.6 57.3c0 31.7-25.8 57.3-57.6 57.3zm20.8-60.5H70.4V46.5c0-2.6-2.2-4.8-4.8-4.8-2.7 0-4.8 2.1-4.8 4.8v14.3H46.4c-2.7 0-4.8 2.1-4.8 4.8 0 2.6 2.1 4.8 4.8 4.8h14.4v14.3c0 2.6 2.1 4.8 4.8 4.8 2.6 0 4.8-2.1 4.8-4.8V70.4h14.4c2.6 0 4.8-2.1 4.8-4.8 0-2.6-2.1-4.8-4.8-4.8z" id="plus_transparent"/></g></g></svg>
+            <span class="text-white font-semibold text-2xl ml-4">Created</span>
+        </div>
+
+        {% if rooms %}
+            <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+                {% for room in rooms %}
+                    {% with name=room.name language=room.language flag_url=room.flag_url key=room.key %}
+                        {% include "../components/cards.html" %}
+                    {% endwith %}
+                {% endfor %}
+            </div>
+            <div class="flex item center justify-center">
+                <a href="{% url "created-rooms" %}" class="rounded-full bg-blue-500 items-center justify-center p-2 px-4">
+                    <p class="text-md font-bold text-gray-200 dark:text-gray-200">
+                    View more
+                    </p>
+                </a>
+            </div>
+        {% else %}
+        <div class="py-10 flex item center justify-center">
+            <div class="items-center justify-center p-2 px-4">
+                <p class="text-md font-bold text-gray-200 dark:text-gray-200">
+                No Rooms Created yet.
+                </p>
+            </div>
+        </div>
+        {% endif %}
+        
+
+        <!--Public Rooms-->
+        <div class="flex items-center h-10 ml-2 mt-6 mb-2">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="h-10 w-10">
+                <defs>
+                    <style>.cls-1{fill:#ffffff}</style>
+                </defs>
+                <g id="Layer_2" data-name="Layer 2">
+                    <g id="layer_1-2" data-name="layer 1">
+                    <path class="cls-1" d="M24 48a24 24 0 1 1 24-24 24 24 0 0 1-24 24zm0-46a22 22 0 1 0 22 22A22 22 0 0 0 24 2z"/>
+                    <path class="cls-1" d="M24 48c-7.85 0-14-10.54-14-24S16.15 0 24 0s14 10.54 14 24-6.15 24-14 24zm0-46c-6.62 0-12 9.87-12 22s5.38 22 12 22 12-9.87 12-22S30.62 2 24 2z"/>
+                    <path class="cls-1" d="M23 4h2v43h-2z"/>
+                    <path class="cls-1" d="M1 23h33v2H1zM37 23h10v2H37zM7 12h37v2H7zM4 34h8v2H4zM16 34h28v2H16z"/>
+                    </g>
+                </g>
+            </svg>
+            <span class="text-white font-semibold text-2xl ml-4">Public</span>
+        </div>
+      
+        {% if public_rooms %}
+            <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4 ">
+                {% for room in public_rooms %}
+                    {% with name=room.name language=room.language flag_url=room.flag_url key=room.key %}
+                        {% include "../components/cards.html" %}
+                    {% endwith %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="py-10 flex item center justify-center">
+                <div class="items-center justify-center p-2 px-4">
+                    <p class="text-md font-bold text-gray-200 dark:text-gray-200">
+                    No Rooms Public yet.
+                    </p>
+                </div>
+            </div>
+        {% endif %}       
+    </div>
+
+ </div>
 {% endblock body %}

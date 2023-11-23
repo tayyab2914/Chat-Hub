@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -73,6 +74,12 @@ TEMPLATES = [
 
 # WSGI_APPLICATION = 'ChatHub.wsgi.application'
 ASGI_APPLICATION = 'ChatHub.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default':{
+        'BACKEND':'channels.layers.InMemoryChannelLayer'
+    }
+}
 
 
 # Database

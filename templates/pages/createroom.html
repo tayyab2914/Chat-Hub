@@ -1,0 +1,81 @@
+{% extends "pages/base.html" %}
+{% block title %}Create Room{% endblock title %}
+
+{% block body %}
+    {% include "../components/sidebar.html" %}
+    <section class="min-h-screen bg-gray-50 dark:bg-gray-900 sm:ml-64">
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen">
+            <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                    <h1 class="text-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                        Create a Room
+                    </h1>
+                    <form id="roomform" class="space-y-4 md:space-y-6" action="{% url "create" %}" method="POST">
+                        {% csrf_token %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p class="text-center {% if message.tags == 'error' %}text-red-500{% elif message.tags == 'success' %}text-green-500{% endif %} text-sm mb-2">
+                                    {{ message }}
+                                </p>
+                            {% endfor %}
+                        {% endif %}
+                        <div class="mb-12">
+                            <label for="roomname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                            <input type="text" name="roomname" id="roomname" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Room name" required>
+                        </div>
+                        <div class="mb-12">
+                            <input type="text" class="hidden" id="language" name="language"/>
+                            <label for="code" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Language to Learn</label>
+                            <select name="code" id="languageSelect" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required></select>
+                        </div>
+
+                        <!-- Toggle Switch -->
+                        <ul class="mt-4 items-center w-1/2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                <div class="flex items-center ps-3">
+                                    <input id="ispublic" name="ispublic" type="checkbox" value="true" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                    <label for="ispublic" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Make Public</label>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create</button>
+                        <p class="text-center text-sm font-bold text-gray-500 dark:text-gray-200">
+                            Want to chat in freinds room? <a href="{% url 'join' %}" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Join Room</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+
+        $(document).ready(function() {
+            let form = document.getElementById("roomform");
+            form.addEventListener('submit', (e)=>{
+                e.preventDefault()
+                code = document.getElementById("languageSelect")
+                language = code.options[code.selectedIndex].innerHTML;
+                document.getElementById('language').value = language
+                form.submit();
+            })
+            $.ajax({
+                url: '/chat/languages/',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    let select = $('#languageSelect');
+                    $.each(data.languages, function(index, country) {
+                        var option = '<option value="' + country.code + '">' + country.language + '</option>';
+                        select.append(option);
+                    });
+                },
+                error: function(error) {
+                    console.error('Error fetching language data:', error);
+                }
+            });
+        });
+    </script>
+{% endblock body %}

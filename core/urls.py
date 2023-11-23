@@ -1,5 +1,5 @@
 from django.urls import path
-from .views.index import index, dashboard, edit_profile_pic
+from .views.index import index, dashboard, edit_profile_pic, comingsoon
 from .views.authentication import signup, signin, signout, check_username_email
 
 urlpatterns = [
@@ -10,4 +10,5 @@ urlpatterns = [
     path('signout/', signout , name="signout"),
     path('dashboard/', dashboard, name="dashboard"),
     path('edit_profile_pic/', edit_profile_pic, name="edit_profile_pic"),
+    path('comingsoon/', comingsoon, name="comingsoon"),
 ]

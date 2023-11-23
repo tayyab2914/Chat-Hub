@@ -1,0 +1,30 @@
+{% extends "pages/base.html" %}
+{% block title %}Created Roms{% endblock title %}
+
+{% block body %}
+{% include "../components/sidebar.html" with current_page='created' %}
+
+<div class="min-h-screen bg-gray-900 p-4 sm:ml-64">
+    <div class="p-4 border-2 border-gray-200  rounded-lg dark:border-gray-700 mt-14">
+        <h1 class="pb-2 text-white text-2xl font-bold">Created Rooms</h1>
+        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4 ">
+            {% if rooms %}
+                {% for room in rooms %}
+                    {% with name=room.name language=room.language flag_url=room.flag_url key=room.key %}
+                        {% include "../components/cards.html" %}
+                    {% endwith %}
+                {% endfor %}
+
+            {% else %}
+                <div class="py-10 flex item center justify-center">
+                    <div class="items-center justify-center p-2 px-4">
+                        <p class="text-md font-bold text-gray-200 dark:text-gray-200">
+                        No Rooms Created yet.
+                        </p>
+                    </div>
+                </div>
+            {% endif %}
+       </div>
+    </div>
+</div>
+{% endblock body %}
