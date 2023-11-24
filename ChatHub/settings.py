@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
+
+OPENAI_API_KEY = config('OPENAI_API_KEY')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -92,6 +95,17 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         "ENGINE":"django.db.backends.postgresql",
+#         "NAME":"railway",
+#         "USER":"postgres",
+#         "PASSWORD":"EeBa5cEgc2CCb3153*aG4FfCbFEa52cg",
+#         "HOST":"roundhouse.proxy.rlwy.net",
+#         "PORT":"26223"
+#     }
+# }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -127,6 +141,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+STATIC_ROOT = BASE_DIR / 'staticfiles_build' / 'static'
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
@@ -142,6 +157,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.office365.com'  # Replace with your email host
 EMAIL_PORT = 587  # Replace with the appropriate port for your email host
 EMAIL_USE_TLS = True  # Use TLS encryption for secure connection
-EMAIL_HOST_USER = 'l1f21bscs0369@ucp.edu.pk'  # Replace with your email address
-EMAIL_HOST_PASSWORD = 'Tayyab123?!'  # Replace with your email password
-DEFAULT_FROM_EMAIL = 'l1f21bscs0369@ucp.edu.pk'  # Replace with your email address
+EMAIL_HOST_USER = 'chat-hub@outlook.com'  # Replace with your email address
+EMAIL_HOST_PASSWORD = 'chathub1238907'  # Replace with your email password
+DEFAULT_FROM_EMAIL = 'chat-hub@outlook.com'  # Replace with your email address

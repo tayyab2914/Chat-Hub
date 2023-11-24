@@ -12,8 +12,9 @@ from django.contrib.auth.models import User
 from openai import OpenAI
 from django.views.decorators.csrf import csrf_exempt
 import json
+import os
+from django.conf import settings
 
-# Create your views here.
 
 @login_required(login_url='/signin')
 def chat(request, key):
@@ -102,7 +103,7 @@ country_languages = {
 
 SYSTEM_ROLE = 'I will give you any language text and you have to convert into selected language. Your translation should be word by word translation and then full sentence translation.Also give messages with pronounciation and give instructions in english that this is word by word and this is full sentence'
 
-client = OpenAI(api_key='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')
+client = OpenAI(api_key=settings.OPENAI_API_KEY)
 
 def get_translated_message(message, output_language):
     prompt = []

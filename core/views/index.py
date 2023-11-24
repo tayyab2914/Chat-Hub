@@ -34,5 +34,6 @@ def edit_profile_pic(request):
             profile.save()
         return redirect('/dashboard')
     
+@login_required(login_url='/signin')
 def comingsoon(request):
     return render(request, 'pages/comingsoon.html')

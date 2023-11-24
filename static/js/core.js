@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let header = document.getElementById("header");
         let navaction = document.getElementById("navAction");
         let toToggle = document.querySelectorAll(".toggleColour");
-        const background_color = "bg-white"
+        const background_color = "bg-gray-100"
 
         if (header && navaction)
         {
