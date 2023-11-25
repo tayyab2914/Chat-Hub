@@ -2,7 +2,7 @@
     "version": 2,
     "builds": [
         {
-            "src": "Uplift/asgi.py",
+            "src": "ChatHub/asgi.py",
             "use": "@vercel/python",
             "config": {
                 "maxLambdaSize": "15mb",
@@ -24,7 +24,7 @@
         },
         {
             "src": "/(.*)",
-            "dest": "Uplift/asgi.py"
+            "dest": "ChatHub/asgi.py"
         }
     ]
 }
