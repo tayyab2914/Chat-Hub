@@ -15,20 +15,19 @@
        </div>
        <div class="flex items-center">
            <div class="flex items-center ms-3">
-             <div class="relative border-solid border-white border-2 w-10 h-10 rounded-full text-sm bg-gray-800 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 rounded-full overflow-hidden" aria-expanded="false" data-dropdown-toggle="dropdown-user">
-
+             <div class="relative border-solid border-white border-2 w-10 h-10 rounded-full text-sm bg-gray-800 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 overflow-hidden" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                <form id="profile_pic_form" method="post" enctype="multipart/form-data" action="{% url 'edit_profile_pic' %}">
                   {% csrf_token %}
                   <input class="hidden text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" onchange="update_profile_pic()" name="profile_picture">
                </form>
-                {% if user.profile.profile_picture %}
-                  <img class="w-10 h-10" src="{{ user.profile.profile_picture.url }}" alt="Profile Picture">
-                {% else %}
-                  <svg  class="w-9 h-10 absolute text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
-                  <div class="w-full h-full group hover:bg-gray-200 opacity-60 absolute rounded-full flex justify-center items-center cursor-pointer transition duration-500">
+               {% if user.profile.profile_picture.url != '/media/users/default/default.png' %}
+                  <img class="w-full h-full" src="{{ user.profile.profile_picture.url }}" alt="Profile Picture">
+               {% else %}
+                  <img class="absolute w-full h-full" src="{{ user.profile.profile_picture.url }}" alt="Profile Picture">
+                  <div class="w-full h-full group hover:bg-gray-200 opacity-60 rounded-full absolute flex justify-center items-center cursor-pointer transition duration-500">
                      <img onclick="showInput()" class="hidden group-hover:block w-12" src="https://www.svgrepo.com/show/33565/upload.svg" alt="" />
                   </div>
-                {% endif %}
+             {% endif %}
              </div>
          </div>
      </div>

@@ -15,6 +15,8 @@ import os
 from decouple import config
 
 OPENAI_API_KEY = config('OPENAI_API_KEY')
+EMAIL_ADDRESS = config('EMAIL_ADDRESS')
+EMAIL_PASSWORD = config('EMAIL_PASSWORD')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -45,7 +47,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'chat',
     'core',
+    'compressor',
 ]
+
+COMPRESS_ROOT = BASE_DIR / 'static'
+
+COMPRESS_ENABLED = True
+
+STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -154,9 +163,9 @@ MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.office365.com'  # Replace with your email host
-EMAIL_PORT = 587  # Replace with the appropriate port for your email host
-EMAIL_USE_TLS = True  # Use TLS encryption for secure connection
-EMAIL_HOST_USER = 'chat-hub@outlook.com'  # Replace with your email address
-EMAIL_HOST_PASSWORD = 'chathub1238907'  # Replace with your email password
-DEFAULT_FROM_EMAIL = 'chat-hub@outlook.com'  # Replace with your email address
+EMAIL_HOST = 'smtp.office365.com'  
+EMAIL_PORT = 587 
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = EMAIL_ADDRESS
+EMAIL_HOST_PASSWORD = EMAIL_PASSWORD
+DEFAULT_FROM_EMAIL = EMAIL_ADDRESS
